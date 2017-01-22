@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["ReactCodemirror"] = factory();
+	else
+		root["ReactCodemirror"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -42,99 +52,185 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!**********************************!*\
-  !*** ./src/client/app/index.jsx ***!
-  \**********************************/
+/*!***************************************!*\
+  !*** ./src/client/app/Codemirror.jsx ***!
+  \***************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _Codemirror = __webpack_require__(/*! ./Codemirror.jsx */ 178);
-	
-	var _Codemirror2 = _interopRequireDefault(_Codemirror);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //import React, { Component } from 'react';
-	//import logo from './logo.svg';
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	//import {CodeMirror} from 'react-codemirror';
+	var React = __webpack_require__(/*! react */ 1);
+	var ReactDOM = __webpack_require__(/*! react-dom */ 32);
+	var findDOMNode = ReactDOM.findDOMNode;
+	var className = __webpack_require__(/*! classnames */ 178);
+	var debounce = __webpack_require__(/*! lodash.debounce */ 179);
 	
-	//var React = require('react');
+	__webpack_require__(/*! codemirror/mode/javascript/javascript */ 180);
+	__webpack_require__(/*! codemirror/mode/xml/xml */ 182);
+	__webpack_require__(/*! codemirror/mode/markdown/markdown */ 183);
+	
+	function normalizeLineEndings(str) {
+		if (!str) return str;
+		return str.replace(/\r\n|\r/g, '\n');
+	}
+	
+	// https://github.com/facebook/react-native/issues/1772
+	
+	var CodeMirror = function (_React$Component) {
+		_inherits(CodeMirror, _React$Component);
+	
+		function CodeMirror(props) {
+			_classCallCheck(this, CodeMirror);
+	
+			var _this = _possibleConstructorReturn(this, (CodeMirror.__proto__ || Object.getPrototypeOf(CodeMirror)).call(this, props));
+	
+			_this.state = { isFocused: false };
+			return _this;
+		}
+		//    var propTypes = {
+		//          className: React.PropTypes.any,
+		//          codeMirrorInstance: React.PropTypes.func,
+		//          defaultValue: React.PropTypes.string,
+		//          onChange: React.PropTypes.func,
+		//          onFocusChange: React.PropTypes.func,
+		//          onScroll: React.PropTypes.func,
+		//          options: React.PropTypes.object,
+		//          path: React.PropTypes.string,
+		//          value: React.PropTypes.string,
+		//          preserveScrollPosition: React.PropTypes.bool,
+		//    }
+		//	static get defaultProps () {
+		//		return {
+		//			preserveScrollPosition: false,
+		//		};
+		//	}
 	
 	
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
+		_createClass(CodeMirror, [{
+			key: 'getCodeMirrorInstance',
+			value: function getCodeMirrorInstance() {
+				return this.props.codeMirrorInstance || __webpack_require__(/*! codemirror */ 181);
+			}
+			//	componentWillMount () {
+			//		this.componentWillReceiveProps = debounce(this.componentWillReceiveProps, 0);
+			//	}
 	
-	  function App(props) {
-	    _classCallCheck(this, App);
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var textareaNode = findDOMNode(this.refs.textarea);
+				var codeMirrorInstance = this.getCodeMirrorInstance();
+				this.codeMirror = codeMirrorInstance.fromTextArea(textareaNode, this.props.options);
+				this.codeMirror.setValue(this.props.defaultValue || this.props.value || '');
+				//this.codeMirror.on('change', this.codemirrorValueChanged); // This is sending an error since it does not get the object when called.
+				this.codeMirror.on('focus', this.focusChanged.bind(this, true));
+				this.codeMirror.on('blur', this.focusChanged.bind(this, false));
+				this.codeMirror.on('scroll', this.scrollChanged);
+				//		this.codeMirror.setValue(this.props.defaultValue || this.props.value || '');
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				// is there a lighter-weight way to remove the cm instance?
+				if (this.codeMirror) {
+					this.codeMirror.toTextArea();
+				}
+			}
+		}, {
+			key: 'componentWillReceiveProps',
+			value: function componentWillReceiveProps(nextProps) {
+				if (this.codeMirror && nextProps.value !== undefined && normalizeLineEndings(this.codeMirror.getValue()) !== normalizeLineEndings(nextProps.value)) {
+					if (this.props.preserveScrollPosition) {
+						var prevScrollPosition = this.codeMirror.getScrollInfo();
+						this.codeMirror.setValue(nextProps.value);
+						this.codeMirror.scrollTo(prevScrollPosition.left, prevScrollPosition.top);
+					} else {
+						this.codeMirror.setValue(nextProps.value);
+					}
+				}
+				if (_typeof(nextProps.options) === 'object') {
+					for (var optionName in nextProps.options) {
+						if (nextProps.options.hasOwnProperty(optionName)) {
+							this.codeMirror.setOption(optionName, nextProps.options[optionName]);
+						}
+					}
+				}
+			}
+		}, {
+			key: 'getCodeMirror',
+			value: function getCodeMirror() {
+				return this.codeMirror;
+			}
+		}, {
+			key: 'focus',
+			value: function focus() {
+				if (this.codeMirror) {
+					this.codeMirror.focus();
+				}
+			}
+		}, {
+			key: 'focusChanged',
+			value: function focusChanged(focused) {
+				this.setState({
+					isFocused: focused
+				});
+				this.props.onFocusChange && this.props.onFocusChange(focused);
+			}
+		}, {
+			key: 'scrollChanged',
+			value: function scrollChanged(cm) {
+				this.props.onScroll && this.props.onScroll(cm.getScrollInfo());
+			}
+		}, {
+			key: 'codemirrorValueChanged',
+			value: function codemirrorValueChanged(doc, change) {
+				if (this.props.onChange && change.origin !== 'setValue') {
+					this.props.onChange(doc.getValue(), change);
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var editorClassName = className('ReactCodeMirror', this.state.isFocused ? 'ReactCodeMirror--focused' : null, this.props.className);
+				return React.createElement(
+					'div',
+					{ className: editorClassName },
+					React.createElement('textarea', { ref: 'textarea', name: this.props.path, defaultValue: this.props.value, autoComplete: 'off' })
+				);
+			}
+		}]);
 	
-	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+		return CodeMirror;
+	}(React.Component);
 	
-	    _this.state = { code: "// Code" };
-	    return _this;
-	  }
-	  //  getInitialState() {
-	  //    return {
-	  //        code: "// Code",
-	  //    };
-	  //  }
+	//CodeMirror.propTypes = {
+	//		className: React.PropTypes.any,
+	//		codeMirrorInstance: React.PropTypes.func,
+	//		defaultValue: React.PropTypes.string,
+	//		onChange: React.PropTypes.func,
+	//		onFocusChange: React.PropTypes.func,
+	//		onScroll: React.PropTypes.func,
+	//		options: React.PropTypes.object,
+	//		path: React.PropTypes.string,
+	//		value: React.PropTypes.string,
+	//		preserveScrollPosition: React.PropTypes.bool,
+	//};
 	
-	
-	  _createClass(App, [{
-	    key: 'updateCode',
-	    value: function updateCode(newCode) {
-	      this.setState({
-	        code: newCode
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var options = {
-	        lineNumbers: true,
-	        mode: "javascript"
-	      };
-	      return _react2.default.createElement(_Codemirror2.default, { value: this.state.code, onChange: this.updateCode, options: options });
-	    }
-	  }]);
-	
-	  return App;
-	}(_react2.default.Component);
-	
-	//class App extends Component {
-	//  render() {
-	//    return (
-	//      <div className="App">
-	//        <div className="App-header">
-	//          <img src={logo} className="App-logo" alt="logo" />
-	//          <h2>Welcome to React</h2>
-	//        </div>
-	//        <p className="App-intro">
-	//          To get started, edit <code>src/App.js</code> and save to reload.
-	//        </p>
-	//      </div>
-	//    );
-	//  }
-	//}
-	
-	//export default App;
-	
-	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+	exports.default = CodeMirror;
 
 /***/ },
 /* 1 */
@@ -22103,188 +22199,6 @@
 
 /***/ },
 /* 178 */
-/*!***************************************!*\
-  !*** ./src/client/app/Codemirror.jsx ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var React = __webpack_require__(/*! react */ 1);
-	var ReactDOM = __webpack_require__(/*! react-dom */ 32);
-	var findDOMNode = ReactDOM.findDOMNode;
-	var className = __webpack_require__(/*! classnames */ 179);
-	var debounce = __webpack_require__(/*! lodash.debounce */ 180);
-	
-	__webpack_require__(/*! codemirror/mode/javascript/javascript */ 181);
-	__webpack_require__(/*! codemirror/mode/xml/xml */ 183);
-	__webpack_require__(/*! codemirror/mode/markdown/markdown */ 184);
-	
-	function normalizeLineEndings(str) {
-		if (!str) return str;
-		return str.replace(/\r\n|\r/g, '\n');
-	}
-	
-	// https://github.com/facebook/react-native/issues/1772
-	
-	var CodeMirror = function (_React$Component) {
-		_inherits(CodeMirror, _React$Component);
-	
-		function CodeMirror(props) {
-			_classCallCheck(this, CodeMirror);
-	
-			var _this = _possibleConstructorReturn(this, (CodeMirror.__proto__ || Object.getPrototypeOf(CodeMirror)).call(this, props));
-	
-			_this.state = { isFocused: false };
-			return _this;
-		}
-		//    var propTypes = {
-		//          className: React.PropTypes.any,
-		//          codeMirrorInstance: React.PropTypes.func,
-		//          defaultValue: React.PropTypes.string,
-		//          onChange: React.PropTypes.func,
-		//          onFocusChange: React.PropTypes.func,
-		//          onScroll: React.PropTypes.func,
-		//          options: React.PropTypes.object,
-		//          path: React.PropTypes.string,
-		//          value: React.PropTypes.string,
-		//          preserveScrollPosition: React.PropTypes.bool,
-		//    }
-		//	static get defaultProps () {
-		//		return {
-		//			preserveScrollPosition: false,
-		//		};
-		//	}
-	
-	
-		_createClass(CodeMirror, [{
-			key: 'getCodeMirrorInstance',
-			value: function getCodeMirrorInstance() {
-				return this.props.codeMirrorInstance || __webpack_require__(/*! codemirror */ 182);
-			}
-			//	componentWillMount () {
-			//		this.componentWillReceiveProps = debounce(this.componentWillReceiveProps, 0);
-			//	}
-	
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var textareaNode = findDOMNode(this.refs.textarea);
-				var codeMirrorInstance = this.getCodeMirrorInstance();
-				this.codeMirror = codeMirrorInstance.fromTextArea(textareaNode, this.props.options);
-				this.codeMirror.setValue(this.props.defaultValue || this.props.value || '');
-				//this.codeMirror.on('change', this.codemirrorValueChanged); // This is sending an error since it does not get the object when called.
-				this.codeMirror.on('focus', this.focusChanged.bind(this, true));
-				this.codeMirror.on('blur', this.focusChanged.bind(this, false));
-				this.codeMirror.on('scroll', this.scrollChanged);
-				//		this.codeMirror.setValue(this.props.defaultValue || this.props.value || '');
-			}
-		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {
-				// is there a lighter-weight way to remove the cm instance?
-				if (this.codeMirror) {
-					this.codeMirror.toTextArea();
-				}
-			}
-		}, {
-			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(nextProps) {
-				if (this.codeMirror && nextProps.value !== undefined && normalizeLineEndings(this.codeMirror.getValue()) !== normalizeLineEndings(nextProps.value)) {
-					if (this.props.preserveScrollPosition) {
-						var prevScrollPosition = this.codeMirror.getScrollInfo();
-						this.codeMirror.setValue(nextProps.value);
-						this.codeMirror.scrollTo(prevScrollPosition.left, prevScrollPosition.top);
-					} else {
-						this.codeMirror.setValue(nextProps.value);
-					}
-				}
-				if (_typeof(nextProps.options) === 'object') {
-					for (var optionName in nextProps.options) {
-						if (nextProps.options.hasOwnProperty(optionName)) {
-							this.codeMirror.setOption(optionName, nextProps.options[optionName]);
-						}
-					}
-				}
-			}
-		}, {
-			key: 'getCodeMirror',
-			value: function getCodeMirror() {
-				return this.codeMirror;
-			}
-		}, {
-			key: 'focus',
-			value: function focus() {
-				if (this.codeMirror) {
-					this.codeMirror.focus();
-				}
-			}
-		}, {
-			key: 'focusChanged',
-			value: function focusChanged(focused) {
-				this.setState({
-					isFocused: focused
-				});
-				this.props.onFocusChange && this.props.onFocusChange(focused);
-			}
-		}, {
-			key: 'scrollChanged',
-			value: function scrollChanged(cm) {
-				this.props.onScroll && this.props.onScroll(cm.getScrollInfo());
-			}
-		}, {
-			key: 'codemirrorValueChanged',
-			value: function codemirrorValueChanged(doc, change) {
-				if (this.props.onChange && change.origin !== 'setValue') {
-					this.props.onChange(doc.getValue(), change);
-				}
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var editorClassName = className('ReactCodeMirror', this.state.isFocused ? 'ReactCodeMirror--focused' : null, this.props.className);
-				return React.createElement(
-					'div',
-					{ className: editorClassName },
-					React.createElement('textarea', { ref: 'textarea', name: this.props.path, defaultValue: this.props.value, autoComplete: 'off' })
-				);
-			}
-		}]);
-	
-		return CodeMirror;
-	}(React.Component);
-	
-	//CodeMirror.propTypes = {
-	//		className: React.PropTypes.any,
-	//		codeMirrorInstance: React.PropTypes.func,
-	//		defaultValue: React.PropTypes.string,
-	//		onChange: React.PropTypes.func,
-	//		onFocusChange: React.PropTypes.func,
-	//		onScroll: React.PropTypes.func,
-	//		options: React.PropTypes.object,
-	//		path: React.PropTypes.string,
-	//		value: React.PropTypes.string,
-	//		preserveScrollPosition: React.PropTypes.bool,
-	//};
-	
-	exports.default = CodeMirror;
-
-/***/ },
-/* 179 */
 /*!*******************************!*\
   !*** ./~/classnames/index.js ***!
   \*******************************/
@@ -22341,7 +22255,7 @@
 
 
 /***/ },
-/* 180 */
+/* 179 */
 /*!************************************!*\
   !*** ./~/lodash.debounce/index.js ***!
   \************************************/
@@ -22728,7 +22642,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 181 */
+/* 180 */
 /*!****************************************************!*\
   !*** ./~/codemirror/mode/javascript/javascript.js ***!
   \****************************************************/
@@ -22739,7 +22653,7 @@
 	
 	(function(mod) {
 	  if (true) // CommonJS
-	    mod(__webpack_require__(/*! ../../lib/codemirror */ 182));
+	    mod(__webpack_require__(/*! ../../lib/codemirror */ 181));
 	  else if (typeof define == "function" && define.amd) // AMD
 	    define(["../../lib/codemirror"], mod);
 	  else // Plain browser env
@@ -23534,7 +23448,7 @@
 
 
 /***/ },
-/* 182 */
+/* 181 */
 /*!****************************************!*\
   !*** ./~/codemirror/lib/codemirror.js ***!
   \****************************************/
@@ -32655,7 +32569,7 @@
 	})));
 
 /***/ },
-/* 183 */
+/* 182 */
 /*!**************************************!*\
   !*** ./~/codemirror/mode/xml/xml.js ***!
   \**************************************/
@@ -32666,7 +32580,7 @@
 	
 	(function(mod) {
 	  if (true) // CommonJS
-	    mod(__webpack_require__(/*! ../../lib/codemirror */ 182));
+	    mod(__webpack_require__(/*! ../../lib/codemirror */ 181));
 	  else if (typeof define == "function" && define.amd) // AMD
 	    define(["../../lib/codemirror"], mod);
 	  else // Plain browser env
@@ -33058,7 +32972,7 @@
 
 
 /***/ },
-/* 184 */
+/* 183 */
 /*!************************************************!*\
   !*** ./~/codemirror/mode/markdown/markdown.js ***!
   \************************************************/
@@ -33069,7 +32983,7 @@
 	
 	(function(mod) {
 	  if (true) // CommonJS
-	    mod(__webpack_require__(/*! ../../lib/codemirror */ 182), __webpack_require__(/*! ../xml/xml */ 183), __webpack_require__(/*! ../meta */ 185));
+	    mod(__webpack_require__(/*! ../../lib/codemirror */ 181), __webpack_require__(/*! ../xml/xml */ 182), __webpack_require__(/*! ../meta */ 184));
 	  else if (typeof define == "function" && define.amd) // AMD
 	    define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
 	  else // Plain browser env
@@ -33880,7 +33794,7 @@
 
 
 /***/ },
-/* 185 */
+/* 184 */
 /*!***********************************!*\
   !*** ./~/codemirror/mode/meta.js ***!
   \***********************************/
@@ -33891,7 +33805,7 @@
 	
 	(function(mod) {
 	  if (true) // CommonJS
-	    mod(__webpack_require__(/*! ../lib/codemirror */ 182));
+	    mod(__webpack_require__(/*! ../lib/codemirror */ 181));
 	  else if (typeof define == "function" && define.amd) // AMD
 	    define(["../lib/codemirror"], mod);
 	  else // Plain browser env
@@ -34101,5 +34015,7 @@
 
 
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;
 //# sourceMappingURL=react-codemirror.js.map

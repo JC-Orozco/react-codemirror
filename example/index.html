@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test React component!</title>
+  </head>
+  <body>
+    <div id="react-app"></div>
+
+<!--
+    <script src="https://fb.me/react-15.1.0.min.js"></script>
+    <script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+-->
+    <script src="https://fb.me/react-15.1.0.js"></script>
+    <script src="https://fb.me/react-dom-15.1.0.js"></script>
+    <script src="../dist/react-codemirror.js"></script>
+    <script>
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {code: "// Code"};
+        }
+      //  getInitialState() {
+      //    return {
+      //        code: "// Code",
+      //    };
+      //  }
+        updateCode(newCode) {
+          this.setState({
+              code: newCode,
+          });
+        }
+        render() {
+          var options = {
+              lineNumbers: true,
+              mode: "javascript"
+          };
+          return(
+            ReactDOM.render(React.createElement(ReactCodemirror.default, {value: this.state.code, onChange: this.updateCode, options: options}, null))
+            //new ReactCodemirror.default({value: this.state.code, onChange: this.updateCode, options: options})
+            
+            // <CodeMirror value={this.state.code} onChange={this.updateCode} options={options} />
+          );
+        }
+      }
+      
+//      var rootElement =
+//      React.createElement('div', {}, 
+//        React.createElement('h1', {}, "Contacts"),
+//        React.createElement('ul', {},
+//          React.createElement('li', {},
+//            React.createElement('h2', {}, "James Nelson"),
+//            React.createElement('a', {href: 'mailto:james@jamesknelson.com'}, 'james@jamesknelson.com')
+//          ),
+//          React.createElement('li', {},
+//            React.createElement('h2', {}, "Joe Citizen"),
+//            React.createElement('a', {href: 'mailto:joe@example.com'}, 'joe@example.com')
+//          )
+//        )
+//      )
+
+      var rootElement = React.createElement(App, {}, null)
+      ReactDOM.render(rootElement, document.getElementById('react-app'))
+    </script>    
+  </body>
+</html>
