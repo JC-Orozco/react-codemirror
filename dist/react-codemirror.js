@@ -230,6 +230,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	//		preserveScrollPosition: React.PropTypes.bool,
 	//};
 	
+	module.exports = CodeMirror;
+	
 	exports.default = CodeMirror;
 
 /***/ },

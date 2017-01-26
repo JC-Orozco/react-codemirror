@@ -126,4 +126,8 @@ class CodeMirror extends React.Component {
 //		preserveScrollPosition: React.PropTypes.bool,
 //};
 
+module.exports = CodeMirror;
+
 export default CodeMirror;
+
+
