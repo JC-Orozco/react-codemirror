@@ -10,7 +10,7 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: 'react-codemirror.js',
-    library: 'ReactCodemirror',
+    library: 'react-codemirror',
     libraryTarget: 'umd' // 'var' // 'umd'
   },
   module : {
