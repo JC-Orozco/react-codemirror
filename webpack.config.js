@@ -6,7 +6,7 @@ var APP_DIR = path.resolve(__dirname, 'src/client/app');
 
 var config = {
   entry: 
-    APP_DIR + '/index.jsx',
+    APP_DIR + '/CodeMirror.jsx',
   output: {
     path: BUILD_DIR,
     filename: 'react-codemirror.js',
