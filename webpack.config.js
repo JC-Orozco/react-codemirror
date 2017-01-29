@@ -18,6 +18,20 @@ var config = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
+		externals: {
+			'react': {
+			  root: 'React',
+			  commonjs2: 'react',
+			  commonjs: 'react',
+			  amd: 'react'
+			},
+			'react-dom': {
+			  root: 'ReactDOM',
+			  commonjs2: 'react-dom',
+			  commonjs: 'react-dom',
+			  amd: 'react-dom'
+			}
+		  },
         loader: 'babel-loader',
         query: {
           //presets: ['react', 'es2015', 'stage-0'],
