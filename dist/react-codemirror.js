@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["ReactCodemirror"] = factory();
+		exports["react-codemirror"] = factory();
 	else
-		root["ReactCodemirror"] = factory();
+		root["react-codemirror"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
