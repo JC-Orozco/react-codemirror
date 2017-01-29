@@ -1,8 +1,8 @@
 {
-  "name": "react-codemirror",
+  "name": "react-codemirror1",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/react-codemirror.js",
+  "main": "./dist/react-codemirror1.js",
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p"

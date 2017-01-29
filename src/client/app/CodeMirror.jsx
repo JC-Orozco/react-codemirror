@@ -128,6 +128,6 @@ class CodeMirror extends React.Component {
 
 module.exports = CodeMirror;
 
-export default CodeMirror;
+//export default CodeMirror;
 
 
