@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 //var React = require('react');
 
-import CodeMirror from 'CodeMirror';
+import CodeMirror from './CodeMirror.jsx';
 //import CodeMirror from 'ReactCodemirror';
 //import CodeMirror from '../node_modules/react-codemirror/dist/react-codemirror.js';
 //var CodeMirror = require('../node_modules/react-codemirror/dist/react-codemirror.js');

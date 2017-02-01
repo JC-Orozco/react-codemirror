@@ -10,29 +10,29 @@ var config = {
     APP_DIR + '/index.jsx',
   output: {
     path: BUILD_DIR,
-    filename: 'react-codemirror.js',
-    library: 'react-codemirror',
-    libraryTarget: 'umd' // 'var' // 'umd'
+    filename: 'react-codemirror1.js',
+//    library: 'react-codemirror',
+//    libraryTarget: 'umd' // 'var' // 'umd'
   },
   module : {
     loaders: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-		externals: {
-			'react': {
-			  root: 'React',
-			  commonjs2: 'react',
-			  commonjs: 'react',
-			  amd: 'react'
-			},
-			'react-dom': {
-			  root: 'ReactDOM',
-			  commonjs2: 'react-dom',
-			  commonjs: 'react-dom',
-			  amd: 'react-dom'
-			}
-		  },
+//        exclude: /(node_modules|bower_components)/,
+//		externals: {
+//			'react': {
+//			  root: 'React',
+//			  commonjs2: 'react',
+//			  commonjs: 'react',
+//			  amd: 'react'
+//			},
+//			'react-dom': {
+//			  root: 'ReactDOM',
+//			  commonjs2: 'react-dom',
+//			  commonjs: 'react-dom',
+//			  amd: 'react-dom'
+//			}
+//		  },
         loader: 'babel-loader',
         query: {
           //presets: ['react', 'es2015', 'stage-0'],
