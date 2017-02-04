@@ -1,54 +1,19 @@
-var webpack = require('webpack');
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
 
-var BUILD_DIR = path.resolve(__dirname, 'dist');
-var APP_DIR = path.resolve(__dirname, 'demo');
-
-var config = {
-  entry: 
-    //APP_DIR + '/CodeMirror.jsx',
-    APP_DIR + '/index.jsx',
-  output: {
-    path: BUILD_DIR,
-    filename: 'demo.js',
-//    library: 'react-codemirror',
-//    libraryTarget: 'umd' // 'var' // 'umd'
+module.exports = {
+  context: path.resolve(__dirname, './demo'),
+  entry: {
+    demo: './index.jsx',
   },
-  module : {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-//        exclude: /(node_modules|bower_components)/,
-//		externals: {
-//			'react': {
-//			  root: 'React',
-//			  commonjs2: 'react',
-//			  commonjs: 'react',
-//			  amd: 'react'
-//			},
-//			'react-dom': {
-//			  root: 'ReactDOM',
-//			  commonjs2: 'react-dom',
-//			  commonjs: 'react-dom',
-//			  amd: 'react-dom'
-//			}
-//		  },
-        loader: 'babel-loader',
-        query: {
-          //presets: ['react', 'es2015', 'stage-0'],
-          //plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
-        }
-      }
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].bundle.js',
+  },
+  module: {
+    rules: [
+      {test: /\.(js|jsx)$/, use: 'babel-loader'}
     ]
-
-//    loaders : [
-//      {
-//        test : /\.jsx?/,
-//        include : APP_DIR,
-//        loader : 'babel'
-//      }
-//    ]
   }
 };
 
-module.exports = config;

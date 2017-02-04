@@ -2,13 +2,14 @@
   "name": "react-codemirror1",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/react-codemirror1.js",
+  "main": "./dist/codemirror.bundle.js",
   "scripts": {
     "clean": "rm -rf ./build/**",
-    "build": "npm run clean && webpack -d && webpack --config ./webpack.demo.js -d"
+    "build": "npm run clean && webpack -d && webpack --config ./webpack.demo.js -d",
+    "demo": "npm run clean && webpack --config ./webpack.demo.js -d"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Juan Carlos Orozco",
+  "license": "",
   "dependencies": {
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
@@ -19,6 +20,6 @@
     "lodash.debounce": "^4.0.8",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "webpack": "^1.14.0"
+    "webpack": "^2.2.1"
   }
 }

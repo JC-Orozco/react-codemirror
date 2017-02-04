@@ -6,8 +6,10 @@ import ReactDOM from 'react-dom';
 //import {CodeMirror} from 'react-codemirror';
 
 //var React = require('react');
-import CodeMirror from '../src/client/app/Codemirror.jsx';
+//import CodeMirror from '../src/client/app/Codemirror.jsx';
 //require('./index.html');
+
+import CodeMirror from '../dist/codemirror.bundle.js';
 
 class App extends React.Component {
   constructor(props) {
