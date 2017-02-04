@@ -11,9 +11,15 @@
     <script src="https://fb.me/react-15.1.0.min.js"></script>
     <script src="https://fb.me/react-dom-15.1.0.min.js"></script>
 -->
+
+    <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-dom/dist/react-dom.js"></script>
+   
+<!--
     <script src="https://fb.me/react-15.1.0.js"></script>
     <script src="https://fb.me/react-dom-15.1.0.js"></script>
-    <script src="../dist/demo.js"></script>
+-->
+    <script src="../dist/react-codemirror.js"></script>
     <script>
       class App extends React.Component {
         constructor(props) {
@@ -36,8 +42,12 @@
               mode: "javascript"
           };
           return(
-            ReactDOM.render(React.createElement(ReactCodemirror.default, {value: this.state.code, onChange: this.updateCode, options: options}, null))
+            //ReactDOM.render(React.createElement(ACE, {value: this.state.code, onChange: this.updateCode, options: options}, null))
             //new ReactCodemirror.default({value: this.state.code, onChange: this.updateCode, options: options})
+            
+            //new ACE() //{value: this.state.code, onChange: this.updateCode, options: options})
+            
+            React.createElement(ACE, {value: this.state.code, onChange: this.updateCode, options: options}, null)
             
             // <CodeMirror value={this.state.code} onChange={this.updateCode} options={options} />
           );
@@ -59,7 +69,7 @@
 //        )
 //      )
 
-      var rootElement = React.createElement(App, {}, null)
+      var rootElement = React.createElement('div', {}, React.createElement(App, {}, null))
       ReactDOM.render(rootElement, document.getElementById('react-app'))
     </script>    
   </body>
